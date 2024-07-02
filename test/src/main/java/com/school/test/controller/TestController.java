@@ -1,7 +1,5 @@
 package com.school.test.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.school.test.dto.PaginatedResponseDTO;
 import com.school.test.dto.ResponsePostDTO;
-import com.school.test.dto.ResponseTestDTO;
 import com.school.test.entity.Test;
 import com.school.test.service.TestService;
 

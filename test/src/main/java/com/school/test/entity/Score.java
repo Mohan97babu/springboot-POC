@@ -10,8 +10,8 @@ import jakarta.persistence.ManyToOne;
 
 
 @Entity
-
 public class Score {
+	
   @Id
   @GeneratedValue(strategy=GenerationType.AUTO,generator="sequenceGenerator")
   private long id;

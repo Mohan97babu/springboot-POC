@@ -1,7 +1,9 @@
 package com.school.test.service;
 
-
-
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.security.auth.login.AccountNotFoundException;
 
@@ -10,12 +12,18 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.school.test.dto.PaginatedRequestDTO;
 import com.school.test.dto.PaginatedResponseDTO;
 import com.school.test.dto.ResponsePostDTO;
 import com.school.test.dto.SearchRequestDTO;
+import com.school.test.dto.StudentDTO;
+import com.school.test.dto.StudentSearchResponse;
+import com.school.test.entity.School;
 import com.school.test.entity.Student;
+import com.school.test.repository.SchoolRepository;
 import com.school.test.repository.StudentRepository;
 
 @Service
@@ -23,6 +31,10 @@ public class StudentService {
    
 	@Autowired
 	private StudentRepository studentrespository;
+	
+	@Autowired
+	private SchoolRepository schoolRepo;
+	
 
 	
 	public ResponsePostDTO addStudent(final Student student) throws AccountNotFoundException
@@ -81,5 +93,26 @@ public class StudentService {
 		response.setPageSize(studentPage.getSize());
 		return response;
 	}
+	
+	 public PaginatedResponseDTO<StudentDTO> globalSearch(String name, Pageable pageable) {
+		 
+		  Page<StudentDTO> studentPage = studentrespository.searchStudents(name, pageable);
+	         Page studentResponse =studentrespository.searchStudents(name, pageable);
+	         studentResponse.getContent()
+	         PaginatedResponseDTO<StudentDTO> response = new PaginatedResponseDTO<>();
+	         response.setData(studentPage.getContent());
+	         response.setPageNumber(studentPage.getNumber());
+	         response.setPageSize(studentPage.getSize());
+	         response.setTotalElements(studentPage.getTotalElements());
+	         response.setTotalPages(studentPage.getTotalPages());
+
+	         return response;
+	         
+	    }
+	
+	// case 1 if any required fields and retrieve student id ,firstname,lastname and schoolname from school table   
+	// case 2 if name all should search
+	// case 3 page size firstname and lastname 
+	
 	
 }

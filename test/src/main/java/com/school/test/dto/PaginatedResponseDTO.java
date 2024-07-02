@@ -2,6 +2,8 @@ package com.school.test.dto;
 
 import java.util.List;
 
+import com.school.test.entity.Student;
+
 public class PaginatedResponseDTO<T> {
 
 	private List<T> data;
@@ -49,5 +51,6 @@ public class PaginatedResponseDTO<T> {
 	public void setTotalPages(int totalPages) {
 		this.totalPages = totalPages;
 	}
+
 
 }

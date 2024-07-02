@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,12 +30,14 @@ public class TutorController {
 	
    
 	@PostMapping("/tutor")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponsePostDTO addTutor(@RequestBody Tutor tutor)
 	{
 		return this.tutorservice.addTutor(tutor);
 	}
 	
 	@GetMapping("/tutor")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
 	public PaginatedResponseDTO<Tutor> retrieveTutor(@RequestParam int page,@RequestParam int size)
 	{
 		return this.tutorservice.retrieveTutor(page,size);

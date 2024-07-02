@@ -88,7 +88,7 @@ public class JwtUtils {
                 .path("/api/auth/refresh-token")
                 .maxAge(jwtRefreshExpirationMs / 1000)
                 .httpOnly(true)
-                .secure(true) // Set to true if using HTTPS
+                .secure(true)
                 .sameSite("Strict")
                 .build();
     }

@@ -2,7 +2,7 @@ package com.school.test.dto;
 
 import org.springframework.data.domain.Sort;
 
-public class SearchRequestDTO {
+public class SearchRequestDTO extends PaginatedRequestDTO{
     private String name;
     private String address;
     private Long id;

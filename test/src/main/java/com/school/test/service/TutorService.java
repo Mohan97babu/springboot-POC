@@ -13,7 +13,6 @@ import com.school.test.dto.PaginatedResponseDTO;
 import com.school.test.dto.ResponsePostDTO;
 import com.school.test.dto.SearchRequestDTO;
 import com.school.test.entity.Score;
-import com.school.test.entity.Student;
 import com.school.test.entity.Tutor;
 import com.school.test.repository.ScoreRepository;
 import com.school.test.repository.TutorRepository;
@@ -36,10 +35,6 @@ public class TutorService {
 		response.setMessage("Tutor is added successfully");
 		return response;
 	}
-
-//	public List<Tutor> retrieveTutor() {
-//		return this.tutorRepository.findAll();
-//	}
 	
 	public PaginatedResponseDTO<Tutor> retrieveTutor(int page,int size) {
 		Page<Tutor>  tutorPage = this.tutorRepository.findAll(PageRequest.of(page,size));
