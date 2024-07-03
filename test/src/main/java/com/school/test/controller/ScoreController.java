@@ -20,13 +20,14 @@ public class ScoreController {
 	private ScoreService scoreservice;
 	
 	@GetMapping("/score")
+	@PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
 	public List<ResponseScoreDTO> retrieveScore()
 	{
 		return this.scoreservice.retrieveScore();
 	}
 	
 	@GetMapping("/score/user/{id}")
-	@PreAuthorize("hasRole('USER')")
+	@PreAuthorize("hasRole('USER') or hasRole('MODERATOR')")
 	public List<ResponseScoreDTO> retrieveStudentScores(@PathVariable Long id)
 	{
 		return this.scoreservice.retrieveStudentScores(id);

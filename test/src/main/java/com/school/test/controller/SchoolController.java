@@ -24,13 +24,13 @@ public class SchoolController {
 	private SchoolService schoolservice;
 	
 	@PostMapping("/school")
+	@PreAuthorize("hasRole('ADMIN')")
     public School createSchool(@RequestBody School school)
     {
 	   return this.schoolservice.createSchool(school);
     }	
 
 	@GetMapping("/school")
-	@PreAuthorize("hasRole('ADMIN')")
 	public PaginatedResponseDTO<School> retrieveSchool(PaginatedRequestDTO request)
 	{
 		return this.schoolservice.getSchools(request);
@@ -43,6 +43,7 @@ public class SchoolController {
 	        return schoolservice.searchSchools(searchRequest);
 	    }
 	 @GetMapping("/schools/search/sort")
+	 @PreAuthorize("hasRole('ADMIN')")
 	  public PaginatedResponseDTO<School> searchSchoolsWithOrder(@ModelAttribute SearchRequestDTO searchRequestWithOrder, Sort sort) {
 	    if (searchRequestWithOrder.getSortField() == null || searchRequestWithOrder.getSortOrder() == null) {
 	      sort = Sort.by(Sort.Direction.ASC, "name");

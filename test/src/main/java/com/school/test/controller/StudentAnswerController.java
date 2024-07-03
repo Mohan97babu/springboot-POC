@@ -2,6 +2,7 @@ package com.school.test.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ public class StudentAnswerController {
 	private StudentAnswerService studentanswerservice;
 	
 	@PostMapping("/student-answer")
+	@PreAuthorize("hasRole('USER')")
 	public ResponsePostDTO addStudentAnswer(@RequestBody StudentAnswer studentanswer)
 	{
 		return this.studentanswerservice.addStudentAnswer(studentanswer);

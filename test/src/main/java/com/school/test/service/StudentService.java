@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.security.auth.login.AccountNotFoundException;
 
@@ -32,10 +33,6 @@ public class StudentService {
 	@Autowired
 	private StudentRepository studentrespository;
 	
-	@Autowired
-	private SchoolRepository schoolRepo;
-	
-
 	
 	public ResponsePostDTO addStudent(final Student student) throws AccountNotFoundException
 	{
@@ -44,6 +41,19 @@ public class StudentService {
 		ResponsePostDTO response = new ResponsePostDTO();
 		response.setId(savedStudent.getId());
 		response.setMessage("Student is added successfully");
+		return response;
+	}
+	
+	public StudentDTO retrieveSingleStudent(Long id) {
+		
+		Optional<Student> data = this.studentrespository.findById(id);
+		Student student = data.get();
+		StudentDTO response = new StudentDTO();
+		response.setFirstName(student.getFirstName());
+		response.setLastName(student.getLastName());
+		response.setId(student.getId());
+		response.setSchoolName(student.getSchool().getName());
+		
 		return response;
 	}
 	
@@ -97,8 +107,7 @@ public class StudentService {
 	 public PaginatedResponseDTO<StudentDTO> globalSearch(String name, Pageable pageable) {
 		 
 		  Page<StudentDTO> studentPage = studentrespository.searchStudents(name, pageable);
-	         Page studentResponse =studentrespository.searchStudents(name, pageable);
-	         studentResponse.getContent()
+	         
 	         PaginatedResponseDTO<StudentDTO> response = new PaginatedResponseDTO<>();
 	         response.setData(studentPage.getContent());
 	         response.setPageNumber(studentPage.getNumber());
@@ -109,10 +118,6 @@ public class StudentService {
 	         return response;
 	         
 	    }
-	
-	// case 1 if any required fields and retrieve student id ,firstname,lastname and schoolname from school table   
-	// case 2 if name all should search
-	// case 3 page size firstname and lastname 
 	
 	
 }

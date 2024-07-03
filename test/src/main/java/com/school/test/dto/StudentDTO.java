@@ -12,6 +12,9 @@ public class StudentDTO {
 		this.lastName = studentLastName;
 		this.schoolName=schoolName2;
 	}
+	public StudentDTO() {
+		
+	}
 	public long getId() {
 		return id;
 	}

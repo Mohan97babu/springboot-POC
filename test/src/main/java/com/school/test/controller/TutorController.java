@@ -50,11 +50,13 @@ public class TutorController {
 	 }
 	 
 	 @GetMapping("/tutors/search")
+	 @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
 	 public PaginatedResponseDTO<Tutor> searchTutors(@ModelAttribute final SearchRequestDTO request)
 	 {
 		 return this.tutorservice.searchTutors(request);
 	 }
 	 @GetMapping("/tutors/search/sort")
+	 @PreAuthorize("hasRole('ADMIN')")
 	 public PaginatedResponseDTO<Tutor> searchTutorsWithSort(@ModelAttribute final SearchRequestDTO request,Sort sort)
 	 {
 		 if(request.getSortField() == null || request.getSortOrder() == null)

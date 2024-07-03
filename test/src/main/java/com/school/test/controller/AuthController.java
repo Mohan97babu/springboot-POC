@@ -48,7 +48,7 @@ public class AuthController {
       return this.authservice.registerUser(signUpRequest);
   }
 
-  @PostMapping("/signup/admin")
+  @PostMapping("/signup")
   public ResponseEntity<?> registerAdmin(@Valid @RequestBody SignupRequest signUpRequest) {
     return this.authservice.registerAdmin(signUpRequest);
   }

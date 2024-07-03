@@ -3,6 +3,7 @@ package com.school.test.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,12 +26,14 @@ public class ChoiceController {
 	private ChoiceService choiceservice;
 	
 	@PostMapping("/choice")
+	@PreAuthorize("hasRole('MODERATOR')")
    public ResponsePostDTO addChoice(@RequestBody Choice choice)
    {
 	   return this.choiceservice.addChoice(choice);
    }
 	
 	@GetMapping("/question/choice/{id}")
+	@PreAuthorize("hasRole('MODERATOR')")
 	public List<ResponseDTO> retrieveChoice(@PathVariable long id){
 		return this.choiceservice.retrieveChoice(id);	
 	} 
