@@ -1,5 +1,6 @@
 package com.school.test.service;
 
+import com.school.test.dto.ResponseDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import com.school.test.dto.PaginatedResponseDTO;
 import com.school.test.dto.SearchRequestDTO;
 import com.school.test.entity.School;
 import com.school.test.repository.SchoolRepository;
+
+import java.util.Optional;
 
 @Service
 public class SchoolService {
@@ -67,4 +70,17 @@ public class SchoolService {
 		return response;
 	}
 
+	public String updateSchool(Long id,School school){
+		Optional<School> existingSchoolOptional = this.schoolrepository.findById(id);
+		if(existingSchoolOptional.isPresent()){
+			School existingSchool = existingSchoolOptional.get();
+			existingSchool.setName(school.getName());
+			existingSchool.setAddress(school.getAddress());
+			this.schoolrepository.save(existingSchool);
+			return "Edited Successfully";
+		}
+		else{
+			return "School with Id" + id+"Not found";
+		}
+	}
 }
